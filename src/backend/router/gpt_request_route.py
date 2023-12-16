@@ -1,7 +1,9 @@
 from flask import Blueprint, request, jsonify
 
 from src.backend.schemas.gpt_request_schema import GptRequestSchema
-from src.backend.apis.openai_api.client import openAiClient
+from src.backend.services.gpt_request_service import gptRequestService
+
+from flask import send_file
 
 gpt_request_route = Blueprint('gpt_request_route', __name__, url_prefix='/api/gpt-request')
 
@@ -20,6 +22,10 @@ def gpt_request():
 
     message = result['message']
 
-    answer = openAiClient.send_message(message)
+    answer, sendpdf = gptRequestService(message) 
 
+    if sendpdf:
+       send_file(answer, attachment_filename=answer.split('/')[-1]) 
+    
     return jsonify({'answer': answer}), 200
+
