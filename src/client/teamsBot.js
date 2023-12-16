@@ -2,6 +2,7 @@ const { TeamsActivityHandler, CardFactory, TurnContext } = require("botbuilder")
 const rawWelcomeCard = require("./adaptiveCards/welcome.json");
 const rawLearnCard = require("./adaptiveCards/learn.json");
 const cardTools = require("@microsoft/adaptivecards-tools");
+const axios = require('axios');
 
 class TeamsBot extends TeamsActivityHandler {
   constructor() {
@@ -13,6 +14,31 @@ class TeamsBot extends TeamsActivityHandler {
     this.onMessage(async (context, next) => {
       console.log("Running with Message Activity.");
       let txt = context.activity.text;
+
+      // ...
+
+      this.onMessage(async (context, next) => {
+        // ...
+        
+        let message = {
+          "message": txt
+        };
+        // Send POST request to Flask server
+        try {
+          const response = await axios.post('http://127.0.0.1:5000/api/gpt-request', message);
+          console.log(response.data);
+          await context.sendActivity(JSON.stringify(response.data));
+        } catch (error) {
+          console.error(error);
+        }
+
+        // ...
+
+        await next();
+      });
+
+      // ...
+
       const removedMentionText = TurnContext.removeRecipientMention(context.activity);
       if (removedMentionText) {
         // Remove the line break
