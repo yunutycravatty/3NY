@@ -1,6 +1,7 @@
 from src.config import *
 from openai import OpenAI
 import logging
+import time
 
 class OpenAIClient:
     def __init__(self):
@@ -45,9 +46,11 @@ class OpenAIClient:
         messages = self.client.beta.threads.messages.list(
 			thread_id=self.thread.id
 		)
+
+        sent_time = time.time()
+
         for message in messages.data:
-            if message.role == 'assistant' and message.created_at > latest_timestamp:
-                latest_timestamp = message.created_at
+            if message.role == 'assistant' and message.created_at > sent_time:
                 response = message.content[0].text.value
                 logging.INFO(f'Got response {response}')
                 return response
