@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 
-from router.gpt_request_route import gpt_request_route
+from src.backend.router.gpt_request_route import gpt_request_route
 
 
 def create_app():
