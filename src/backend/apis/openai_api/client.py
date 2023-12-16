@@ -24,6 +24,7 @@ class OpenAIClient:
 
 
     def send_message(self, msg):
+        sent_time = time.time()
         self.client.beta.threads.messages.create(
             thread_id = self.thread.id,
             role = "user",
@@ -34,12 +35,12 @@ class OpenAIClient:
             assistant_id=self.assistant.id,
             instructions="Please address the user as Nico. The user has a premium account."
         )
-        while(True):
+        while True :
             status = self.client.beta.threads.runs.retrieve(
                 thread_id=self.thread.id,
                 run_id =run.id
             ).status
-
+            print(status)
             if status == 'completed':
                 break
 
@@ -47,12 +48,10 @@ class OpenAIClient:
 			thread_id=self.thread.id
 		)
 
-        sent_time = time.time()
-
         for message in messages.data:
             if message.role == 'assistant' and message.created_at > sent_time:
                 response = message.content[0].text.value
-                logging.INFO(f'Got response {response}')
+                print(f'Got response {response}')
                 return response
             
 
