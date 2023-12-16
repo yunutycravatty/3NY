@@ -5,16 +5,16 @@ import time
 
 class OpenAIClient:
     def __init__(self):
-        client = OpenAI(api_key=config.OPENAI_KEY)
+        client = OpenAI(api_key=OPENAI_API_KEY)
 
-        with open(config.INSTRUCTION_PATH, 'r') as f:
-            instructions = ''.join([line.rstrip for line in f])
+        with open(INSTRUCTION_PATH, 'r') as f:
+            instructions = ''.join([line.rstrip() for line in f])
 
         assistant = client.beta.assistants.create(
 		    name="Precurement Assistant",
 		    instructions=instructions,
 		    tools=[{"type": "code_interpreter"}],
-		    model=config.MODEL
+		    model=MODEL
 	    )
         thread = client.beta.threads.create()
 
@@ -56,3 +56,4 @@ class OpenAIClient:
                 return response
             
 
+openAiClient = OpenAIClient()
