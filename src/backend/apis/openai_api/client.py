@@ -4,6 +4,22 @@ import logging
 import time
 from src.backend.db.db import sqlitedb
 
+def upload_files(upload_dir, client):
+    oldfiles = sqlitedb.load_dict("filedict")
+    newfiles = {}
+    for file in os.listdir(upload_dir):
+        if file in oldfiles:
+            newfiles[file] = oldfiles[file]
+            continue
+        res = client.files.create(
+            file=open(os.path.join(upload_dir, file), 'rb'),
+            purpose='assistants'
+        )
+        newfiles[file] = res.id
+        
+    sqlitedb.save_or_update_dict(newfiles, "filedict")
+    return newfiles
+
 class OpenAIClient:
     def __init__(self):
         client = OpenAI(api_key=OPENAI_API_KEY)
@@ -11,11 +27,15 @@ class OpenAIClient:
         with open(INSTRUCTION_PATH, 'r', encoding='UTF-8', errors="ignore") as f:
             instructions = ''.join([line.rstrip() for line in f])
 
+        files = upload_files(UPLOAD, client)
+        file_ids = [id for id in files.values()]
+        print(file_ids)
         assistant = client.beta.assistants.create(
 		    name="Precurement Assistant",
 		    instructions=instructions,
 		    tools=[{"type": "code_interpreter"}],
-		    model=MODEL
+		    model=MODEL,
+            file_ids=file_ids[::-1]
 	    )
         thread = client.beta.threads.create()
 
@@ -23,8 +43,7 @@ class OpenAIClient:
         self.assistant = assistant
         self.thread = thread
     
-    def upload_files(upload_dir):
-        pass
+
 
     def send_message(self, msg):
         sent_time = time.time()
