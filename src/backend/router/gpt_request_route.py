@@ -20,6 +20,6 @@ def gpt_request():
 
     message = result['message']
 
-    answer = openAIClient.send_message(message)
+    answer = openAiClient.send_message(message)
 
     return jsonify({'answer': answer}), 200
