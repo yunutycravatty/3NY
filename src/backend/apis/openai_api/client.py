@@ -40,7 +40,7 @@ class OpenAIClient:
                 run_id =run.id
             ).status
 
-            if run.status == 'completed':
+            if status == 'completed':
                 break
 
         messages = self.client.beta.threads.messages.list(
