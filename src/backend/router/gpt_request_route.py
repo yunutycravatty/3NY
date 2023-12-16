@@ -1,8 +1,7 @@
 from flask import Blueprint, request, jsonify
 
-# from src.backend.schemas.gpt_request_schema import GptRequestSchema
-from src.backend.services.gpt_request_service import gptRequestService
-
+from src.backend.schemas.gpt_request_schema import GptRequestSchema
+from src.backend.apis.openai_api.client import openAiClient
 
 gpt_request_route = Blueprint('gpt_request_route', __name__, url_prefix='/api/gpt-request')
 
@@ -14,8 +13,6 @@ def gpt_request():
     """
     data = request.get_json()
 
-    return jsonify({'answer': 'Hello World!'}), 200
-
     try:
         result = GptRequestSchema().load(data)
     except KeyError as e:
@@ -23,6 +20,6 @@ def gpt_request():
 
     message = result['message']
 
-    answer = gptRequestService().get_answer(message)
+    answer = openAiClient.send_message(message)
 
     return jsonify({'answer': answer}), 200
