@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 
 from src.backend.schemas.gpt_request_schema import GptRequestSchema
-from src.backend.apis.openai_api.client import openAIClient
+from src.backend.apis.openai_api.client import openAiClient
 
 gpt_request_route = Blueprint('gpt_request_route', __name__, url_prefix='/api/gpt-request')
 
