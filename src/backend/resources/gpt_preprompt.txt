@@ -31,6 +31,7 @@ if a logo is to be printed:
 - Are the items unisex or do you need items for men and women?
 - What size should the item be? (S, M, L, XL, XXL, XXXL or for shoes 38, 39, 40, 41, 42, 43, 44, 45) Please specify the number of items per size. For example: 10x S, 20x M, 30x L, 10x XL, 5x XXL, 1x XXXL
 - Do you need a sample?
+if a sample is required:
     - If so, does the sample have to be printed or is a sample of the item sufficient?
     - If so, by when do you need the print sample?
 
@@ -41,5 +42,6 @@ if a logo is to be printed:
     - Where should the logo be placed?
     - What size should the logo be?
 - Do you need a sample?
+if a sample is required:
     - If so, does the sample have to be printed or is a sample of the item sufficient?
     - If so, by when do you need the print sample?
