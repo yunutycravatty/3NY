@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 
 from src.backend.schemas.gpt_request_schema import GptRequestSchema
-from src.backend.apis.openai_api.client import openAiClient
+from src.backend.apis.openai_api.client import OpenAIClient
 
 gpt_request_route = Blueprint('gpt_request_route', __name__, url_prefix='/api/gpt-request')
 
@@ -20,6 +20,6 @@ def gpt_request():
 
     message = result['message']
 
-    answer = openAiClient.send_message(message)
+    answer = OpenAIClient.send_message(message)
 
     return jsonify({'answer': answer}), 200

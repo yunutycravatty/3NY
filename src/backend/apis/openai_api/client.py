@@ -1,4 +1,4 @@
-import config
+from src.config import *
 from openai import OpenAI
 import logging
 
@@ -30,7 +30,7 @@ class OpenAIClient:
         )
         run = self.client.beta.threads.runs.create(
             thread_id=self.thread.id,
-            assistant_id=self.assistant.id
+            assistant_id=self.assistant.id,
             instructions="Please address the user as Nico. The user has a premium account."
         )
         while(True):
