@@ -11,3 +11,4 @@ with open(abs_file_path_api_key) as f:
 	key = ''.join([s for s in f.readlines()])
 OPENAI_API_KEY = key
 MODEL = "gpt-4-1106-preview"
+DBPATH = ""
