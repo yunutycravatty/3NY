@@ -7,7 +7,7 @@ class OpenAIClient:
     def __init__(self):
         client = OpenAI(api_key=OPENAI_API_KEY)
 
-        with open(INSTRUCTION_PATH, 'r') as f:
+        with open(INSTRUCTION_PATH, 'r', encoding='UTF-8', errors="ignore") as f:
             instructions = ''.join([line.rstrip() for line in f])
 
         assistant = client.beta.assistants.create(

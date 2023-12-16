@@ -27,7 +27,7 @@ The following points must be clarified for each request in the conversation:
 - Internal or external use? (For employees or for customers?)
 - Quantity (How many products are required?)
 - Link to the article: Do you have a link to the item to be ordered?
-- Which colors should be used? 1c/ 4c / Pantone (StrÃ¶er color blue or orange)?
+- Which colors should be used? 1c/ 4c / Pantone (Strer color blue or orange)?
 - Which LOGO or motif should be printed? Please upload a printable file. [Upload](/upload)
 - Delivery date: By when do you need the items?
 - Are the items a one-off delivery or do you need them more often?
