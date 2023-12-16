@@ -2,6 +2,7 @@ from src.config import *
 from openai import OpenAI
 import logging
 import time
+from src.backend.db.db import sqlitedb
 
 class OpenAIClient:
     def __init__(self):
@@ -21,7 +22,9 @@ class OpenAIClient:
         self.client = client
         self.assistant = assistant
         self.thread = thread
-
+    
+    def upload_files(upload_dir):
+        pass
 
     def send_message(self, msg):
         sent_time = time.time()
@@ -39,8 +42,8 @@ class OpenAIClient:
                 thread_id=self.thread.id,
                 run_id =run.id
             ).status
-            print(status)
             if status == 'completed':
+                print("Status: completed")
                 break
 
         messages = self.client.beta.threads.messages.list(
