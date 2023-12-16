@@ -8,6 +8,8 @@ def upload_files(upload_dir, client):
     oldfiles = sqlitedb.load_dict("filedict")
     newfiles = {}
     for file in os.listdir(upload_dir):
+        print('Upload dir:' + upload_dir)
+        print('file:' + file)
         if file in oldfiles:
             newfiles[file] = oldfiles[file]
             continue
