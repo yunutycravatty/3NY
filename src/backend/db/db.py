@@ -1,6 +1,6 @@
 import sqlite3
 import json
-from config import *
+from src.config import *
 
 class DB():
 
