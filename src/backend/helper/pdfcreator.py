@@ -5,10 +5,16 @@ from reportlab.lib.styles import getSampleStyleSheet
 import os
 
 class PDFCreator:
-	def __init__():
+	def __init__(self):
 		pass
 
 	def create_pdf(self, data_dict, filename):
+		# Check if the directory exists, create if it doesn't
+		# script_dir = os.path.dirname(__file__)
+		# abs_file_path_pdf = os.path.join(script_dir, filename)
+		# directory = os.path.dirname(abs_file_path_pdf)
+		# if not os.path.exists(abs_file_path_pdf):
+		# 	os.makedirs(abs_file_path_pdf, exist_ok=True)
 		# Set up the document with the specified filename and page size
 		doc = SimpleDocTemplate(filename, pagesize=letter)
 		story = []

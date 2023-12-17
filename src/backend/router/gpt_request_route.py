@@ -22,8 +22,8 @@ def gpt_request():
 
     message = result['message']
 
-    answer, sendpdf = gptRequestService(message) 
-
+    answer, sendpdf = gptRequestService.process_message(message) 
+    print(answer)
     if sendpdf:
        send_file(answer, attachment_filename=answer.split('/')[-1]) 
     
