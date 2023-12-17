@@ -16,6 +16,13 @@ class PDFCreator:
 		# if not os.path.exists(abs_file_path_pdf):
 		# 	os.makedirs(abs_file_path_pdf, exist_ok=True)
 		# Set up the document with the specified filename and page size
+		#print("filename: ",filename)
+		#open(filename, '+w')
+		directory = os.path.dirname(filename)
+		if not os.path.exists(directory):
+			os.makedirs(directory, exist_ok=True)
+   
+   
 		doc = SimpleDocTemplate(filename, pagesize=letter)
 		story = []
 		styles = getSampleStyleSheet()
