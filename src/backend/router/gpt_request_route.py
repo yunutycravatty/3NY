@@ -25,7 +25,20 @@ def gpt_request():
     answer, sendpdf = gptRequestService.process_message(message) 
     print(answer)
     if sendpdf:
-       send_file(answer, attachment_filename=answer.split('/')[-1]) 
+        
+        print("send pdf")
+        #return send_file(answer, download_name=answer.split('/')[-1], as_attachment=True) 
+        return jsonify(
+            {
+                'contentType': 'application/pdf',
+                
+                'file': {
+                        'downloadUrl': answer,
+                        'name': 'pdfReport.pdf',
+                    }
+                
+            }
+        ),200
     
     return jsonify({'answer': answer}), 200
 
