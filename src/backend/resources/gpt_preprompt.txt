@@ -57,6 +57,7 @@ If a question is dependent on a previous question, only ask this question if the
 
 When you are done, send a JSON with key-value pairs to the client with all the information.
 Search the provided file for an appropriate vendor selling the requested items.
-If no vendor is found, add the key-value pair "Vendor" with the value "unknown" to the list.
+If no vendor is found for the exact product, please look into the list of vendors and think about which of the vendors could supply that. Eg. if there is no supplier for sportshirts but there is one that offers sportswear, we could ask this vendor.
+Add the key-value pair "Potential Vendor" with the value "vendor name" of the potential vendor to the list.
 If the vendor is found, add the key-value pair "Vendor" with the value "vendor name" to the list.
 Return the word "done" and append the JSON to it. Don't append additional text or characters in any case!
