@@ -1,54 +1,65 @@
-from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
-from reportlab.lib.styles import getSampleStyleSheet
-import os
+from reportlab.lib.units import inch
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, Spacer, Image, PageTemplate, Frame
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib import colors
 
-class PDFCreator:
-	def __init__(self):
-		pass
 
-	def create_pdf(self, data_dict, filename):
-		# Check if the directory exists, create if it doesn't
-		# script_dir = os.path.dirname(__file__)
-		# abs_file_path_pdf = os.path.join(script_dir, filename)
-		# directory = os.path.dirname(abs_file_path_pdf)
-		# if not os.path.exists(abs_file_path_pdf):
-		# 	os.makedirs(abs_file_path_pdf, exist_ok=True)
-		# Set up the document with the specified filename and page size
-		doc = SimpleDocTemplate(filename, pagesize=letter)
-		story = []
-		styles = getSampleStyleSheet()
+def create_pdf(file_name, data):
+    # Create a PDF document
+    pdf = SimpleDocTemplate(file_name, pagesize=letter)
 
-		# Table Data - starting with the headers
-		table_data = [['Key', 'Value']]
+    # Create a list to hold the content of the PDF
+    content = []
 
-		# Adding data from the dictionary
-		for key, value in data_dict.items():
-			table_data.append([key, value])
+    # Add the header with the company logo
+    header_logo_path = "company_logo.png"  # Replace with the actual path to your company logo
+    header_logo = Image(header_logo_path, width=100, height=50)
 
-		# Define the style for the table
-		table_style = TableStyle([
-			('BACKGROUND', (0, 0), (-1, 0), colors.lightblue),  # Header row background color
-			('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),  # Header row text color
-			('ALIGN', (0, 0), (-1, -1), 'LEFT'),  # Align all cells to the left
-			('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),  # Header row font
-			('BOTTOMPADDING', (0, 0), (-1, 0), 12),  # Padding in header row
-			('BACKGROUND', (0, 1), (-1, -1), colors.whitesmoke),  # Background color for the rest of the table
-			('GRID', (0, 0), (-1, -1), 1, colors.black),  # Grid lines
-		])
+    def header(canvas, doc):
+        canvas.saveState()
+        width, height = letter
+        header_logo.drawOn(canvas, width - 120, height - 70)  # Adjust the Y-coordinate to move the logo down
+        canvas.restoreState()
 
-		# Create a table for the data
-		key_value_table = Table(table_data, colWidths=[200, 300], hAlign='LEFT')
-		key_value_table.setStyle(table_style)
-		story.append(key_value_table)
+    frame = Frame(pdf.leftMargin, pdf.bottomMargin, pdf.width, pdf.height)
+    template = PageTemplate(id='header', frames=[frame], onPage=header)
 
-    	# Build the document
-		doc.build(story)
+    pdf.addPageTemplates([template])
 
-		if os.path.exists(filename):
-			print(f'File created at ${filename}')
-			return filename
-		else:
-			print("File creation failed!")
-			return None
+    # Add a spacer before the headline to move it up
+    content.append(Spacer(1, 0.2 * inch))
+
+    # Add the centered and even larger headline
+    headline_style = ParagraphStyle(
+        "Heading1",
+        parent=getSampleStyleSheet()["Heading1"],
+        fontName="Helvetica-Bold",
+        fontSize=24,  # Increase the font size to make the headline even bigger
+        alignment=1  # 0=left, 1=center, 2=right
+    )
+    content.append(Paragraph("Procurement request #2", headline_style))
+
+    # Add more space between the headline and the table
+    content.append(Spacer(1, 0.3 * inch))
+
+    # Create a table and populate it with data from the dictionary
+    table_data = [(key, str(value)) for key, value in data.items()]
+
+    # Calculate the width for the table (3/5 of the page width)
+    table_width = pdf.width * 3 / 5
+
+    table_style = TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+                              ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+                              ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                              ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                              ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                              ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+                              ('GRID', (0, 0), (-1, -1), 1, colors.black)])
+
+    table = Table(table_data, style=table_style, colWidths=[table_width] * len(table_data[0]))
+
+    content.append(table)
+
+    # Build the PDF document
+    pdf.build(content)
