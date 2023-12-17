@@ -1,72 +1,47 @@
-# Overview of the Basic Bot template
+# AI Procurement Assistant for Microsoft Teams
 
-Examples of Microsoft Teams bots in everyday use include:
+The AI Procurement Assistant for Microsoft Teams is an innovative tool designed to streamline the procurement process. Leveraging the power of OpenAI's GPT model, this assistant functions as a Microsoft Teams bot, offering efficient and intelligent assistance in procurement tasks.
 
-- Bots that notify about build failures.
-- Bots that provide information about the weather or bus schedules.
-- Bots that provide travel information.
+## Key Features of the AI Procurement Assistant
 
-A bot interaction can be a quick question and answer, or it can be a complex conversation. Being a cloud application, a bot can provide valuable and secure access to cloud services and corporate resources.
+- **Automated Offer Creation:** The assistant can generate offers for products requested by employees. It initiates a Q&A session to gather all necessary details and then produces a comprehensive PDF template with all relevant information.
+- **Order History Analysis:** It has the capability to review previous orders to determine if any past vendors could fulfill the current request, enhancing efficiency and vendor relationship management.
 
-## Get started with the Basic Bot template
+## Getting Started with the AI Procurement Assistant
 
 > **Prerequisites**
 >
-> To run the Basic Bot template in your local dev machine, you will need:
+> To utilize the AI Procurement Assistant, ensure you have:
 >
-> - [Node.js](https://nodejs.org/), supported versions: 16, 18
-> - A [Microsoft 365 account for development](https://docs.microsoft.com/microsoftteams/platform/toolkit/accounts)
-> - [Teams Toolkit Visual Studio Code Extension](https://aka.ms/teams-toolkit) version 5.0.0 and higher or [Teams Toolkit CLI](https://aka.ms/teamsfx-cli)
+> - A working installation of Microsoft Teams.
+> - Access to the AI Procurement Assistant bot within your Teams environment.
 
-1. First, select the Teams Toolkit icon on the left in the VS Code toolbar.
-2. In the Account section, sign in with your [Microsoft 365 account](https://docs.microsoft.com/microsoftteams/platform/toolkit/accounts) if you haven't already.
-3. Press F5 to start debugging which launches your app in Teams using a web browser. Select `Debug (Edge)` or `Debug (Chrome)`.
-4. When Teams launches in the browser, select the Add button in the dialog to install your app to Teams.
-5. You will receive a welcome message from the bot, or start typing `welcome` or `learn` to get a response.
+1. Open Microsoft Teams and navigate to the AI Procurement Assistant bot.
+2. Start a conversation with the bot by typing a command like `create offer` or by asking for help.
+3. Follow the bot's prompts to provide details about the product you wish to order.
+4. The bot will process the information and may ask additional questions to clarify your needs.
+5. Once all necessary information is gathered, the bot will generate a PDF offer template and provide it to you directly within Teams.
+6. For checking previous orders, simply ask the bot to review past orders related to your current request.
 
-**Congratulations**! You are running an application that can now interact with users in Teams:
+## Components of the AI Procurement Assistant
 
-![basic bot](https://github.com/OfficeDev/TeamsFx/assets/11220663/d9dc7159-1f93-4790-8b83-a3bfe600799a)
+| Component | Description |
+| --------- | ----------- |
+| `Bot Framework` | Core framework enabling the bot's interaction within Microsoft Teams. |
+| `PDF Generator` | Module responsible for creating PDF templates based on user inputs. |
+| `Order History Analyzer` | A tool for reviewing and extracting relevant information from past orders. |
 
-## What's included in the template
+## Extending and Customizing the AI Procurement Assistant
 
-| Folder       | Contents                                            |
-| - | - |
-| `.vscode`    | VSCode files for debugging                          |
-| `appPackage` | Templates for the Teams application manifest        |
-| `env`        | Environment files                                   |
-| `infra`      | Templates for provisioning Azure resources          |
+The AI Procurement Assistant is designed for flexibility and can be customized to suit various procurement needs. Here are some resources to help you extend and customize the assistant:
 
-The following files can be customized and demonstrate an example implementation to get you started.
+- [Customizing the Q&A Workflow](https://example.com/customize-workflow)
+- [Integrating with External Databases for Order History](https://example.com/integrate-databases)
+- [Modifying PDF Templates](https://example.com/modify-pdf-templates)
+- [Extending Bot Capabilities with Additional APIs](https://example.com/additional-apis)
 
-| File                                 | Contents                                           |
-| - | - |
-|`adaptiveCards/learn.json`| Defines the adaptive card returned from bot when `learn` command is triggered. |
-|`adaptiveCards/welcome.json`| Defines the adaptive card returned from bot for welcome message and `welcome` command.|
-|`teamsBot.js`| Handles business logics for the Basic Bot.|
-|`index.js`|`index.js` is used to setup and configure the Basic Bot.|
+For more detailed guidance and additional resources, visit our [GitHub repository](https://github.com/YourRepo/AIProcurementAssistant).
 
-The following are Teams Toolkit specific project files. You can [visit a complete guide on Github](https://github.com/OfficeDev/TeamsFx/wiki/Teams-Toolkit-Visual-Studio-Code-v5-Guide#overview) to understand how Teams Toolkit works.
+# AIProcureBot
 
-| File                                 | Contents                                           |
-| - | - |
-|`teamsapp.yml`|This is the main Teams Toolkit project file. The project file defines two primary things:  Properties and configuration Stage definitions. |
-|`teamsapp.local.yml`|This overrides `teamsapp.yml` with actions that enable local execution and debugging.|
-
-## Extend the Basic Bot template
-
-Following documentation will help you to extend the Basic Bot template.
-
-- [Add or manage the environment](https://learn.microsoft.com/microsoftteams/platform/toolkit/teamsfx-multi-env)
-- [Create multi-capability app](https://learn.microsoft.com/microsoftteams/platform/toolkit/add-capability)
-- [Add single sign on to your app](https://learn.microsoft.com/microsoftteams/platform/toolkit/add-single-sign-on)
-- [Access data in Microsoft Graph](https://learn.microsoft.com/microsoftteams/platform/toolkit/teamsfx-sdk#microsoft-graph-scenarios)
-- [Use an existing Azure Active Directory application](https://learn.microsoft.com/microsoftteams/platform/toolkit/use-existing-aad-app)
-- [Customize the Teams app manifest](https://learn.microsoft.com/microsoftteams/platform/toolkit/teamsfx-preview-and-customize-app-manifest)
-- Host your app in Azure by [provision cloud resources](https://learn.microsoft.com/microsoftteams/platform/toolkit/provision) and [deploy the code to cloud](https://learn.microsoft.com/microsoftteams/platform/toolkit/deploy)
-- [Collaborate on app development](https://learn.microsoft.com/microsoftteams/platform/toolkit/teamsfx-collaboration)
-- [Set up the CI/CD pipeline](https://learn.microsoft.com/microsoftteams/platform/toolkit/use-cicd-template)
-- [Publish the app to your organization or the Microsoft Teams app store](https://learn.microsoft.com/microsoftteams/platform/toolkit/publish)
-- [Develop with Teams Toolkit CLI](https://aka.ms/teamsfx-cli/debug)
-- [Preview the app on mobile clients](https://github.com/OfficeDev/TeamsFx/wiki/Run-and-debug-your-Teams-application-on-iOS-or-Android-client)
-# 3NY
+---
