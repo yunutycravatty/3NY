@@ -10,7 +10,7 @@ def upload_image():
     data = request
 
     # post to gpt_request_route message = <image uploaded>
-    message = { 'message': '<image uploaded>' }
+    message = { 'message': '<image uploaded> under ' + data }
     answer, sendpdf = gptRequestService.process_message(message)
 
     # return response
