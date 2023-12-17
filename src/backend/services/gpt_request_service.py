@@ -3,6 +3,7 @@ from src.backend.helper.pdfcreator import PDFCreator
 import re
 import os
 import json 
+from src.config import *
 
 #from flask import send_file, jsonify
 
@@ -27,9 +28,9 @@ class GptRequestService:
 		#data = jsonify(matches[0])
 
 		print(data)
-		script_dir = os.path.dirname(__file__)
-		abs_file_path_pdf = os.path.join(script_dir, '../resources/output/pdfReport.pdf')
-		pdf_path = self.pdf.create_pdf(data, abs_file_path_pdf)
+		#script_dir = os.path.dirname(__file__)
+		#abs_file_path_pdf = os.path.join(script_dir, '../resources/output/pdfReport.pdf')
+		pdf_path = self.pdf.create_pdf(data, ROOT_DIR + '/backend/resources/output/pdfReport.pdf')
 
 		return pdf_path, True
 
