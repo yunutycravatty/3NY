@@ -61,6 +61,8 @@ If a question is dependent on a previous question, only ask this question if the
 
 
 When you are done, generate a JSON with key-value pairs with all the information.
+You are done when you have all the information you need to generate the JSON.
+That is the case for product orders and product orders for events.
 Search the provided xlsx file for an appropriate vendor selling the requested items.
 For example, if the client wants to order office chairs, search for a vendor that sells office chairs.
 If a vendor is found, add the key-value pair "Vendor" with the value "vendor name" to the list.
