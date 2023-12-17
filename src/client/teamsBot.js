@@ -9,6 +9,7 @@ const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 const FILES_DIR = '../backend/resources/output';
+const FILES_DIR_UPLOADS = '../backend/resources/uploads';
 
 class TeamsBot extends TeamsActivityHandler {
   constructor() {
@@ -31,11 +32,14 @@ class TeamsBot extends TeamsActivityHandler {
         const config = {
             responseType: 'stream'
         };
-        const filePath = path.join(FILES_DIR, file.name);
+        const filePath = path.join(FILES_DIR_UPLOADS, file.name);
         await writeFile(file.content.downloadUrl, config, filePath);
-        const reply = MessageFactory.text(`<b>${ file.name }</b> received and saved.`);
-        reply.textFormat = 'xml';
-        await context.sendActivity(reply);
+
+        const r = axios.post('http://127.0.0.1:5000/api/upload-image', filePath);
+
+        // const reply = MessageFactory.text(`<b>${ file.name }</b> received and saved.`);
+        // reply.textFormat = 'xml';
+        await context.sendActivity(r.data.answer);
 
       } else if (attachments && attachments[0] && imageRegex.test(attachments[0].contentType)) {
         console.log("User provided inline file. Save locally.");
@@ -369,8 +373,8 @@ class TeamsBot extends TeamsActivityHandler {
           headers: { Authorization: `Bearer ${ botToken }` },
           responseType: 'stream'
       };
-      const fileName = await geneFileName(FILES_DIR);
-      const filePath = path.join(FILES_DIR, fileName);
+      const fileName = await geneFileName(FILES_DIR_UPLOADS);
+      const filePath = path.join(FILES_DIR_UPLOADS, fileName);
       await writeFile(file.contentUrl, config, filePath);
       const fileSize = await getFileSize(filePath);
       const reply = MessageFactory.text(`Image <b>${ fileName }</b> of size <b>${ fileSize }</b> bytes received and saved.`);
@@ -380,7 +384,7 @@ class TeamsBot extends TeamsActivityHandler {
   }
 
   getInlineAttachment(fileName) {
-      const imageData = fs.readFileSync(path.join(FILES_DIR, fileName));
+      const imageData = fs.readFileSync(path.join(FILES_DIR_UPLOADS, fileName));
       const base64Image = Buffer.from(imageData).toString('base64');
       return {
           name: fileName,

@@ -10,6 +10,11 @@ class PDFCreator:
 		pass
 
 	def create_pdf(self, data_dict, filename):
+     
+		directory = os.path.dirname(filename)
+		if not os.path.exists(directory):
+			os.makedirs(directory, exist_ok=True)
+   
 		# Create a PDF document
 		pdf = SimpleDocTemplate(filename, pagesize=letter)
 
