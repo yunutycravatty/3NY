@@ -45,6 +45,7 @@ Category: garments of any kind, such as sweaters, T-shirts, pants, jackets, (dre
 
 Category: things like miscellaneous (pens, cups, umbrellas...):
 - How should the logo be used? [Engraving, print, ...]?(use reasonable methods for the item)
+- Which colors should be used? Give the color in Pantone if possible.
 - Where should the logo be placed? [Front, back, left sleeve, right sleeve, left chest, right chest, collar, other](use reasonable placements for the item)
 - What size should the logo be?
 - Do you need a sample?
