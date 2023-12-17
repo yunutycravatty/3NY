@@ -74,6 +74,3 @@ class OpenAIClient:
                 response = message.content[0].text.value
                 print(f'Got response {response}')
                 return response
-            
-
-openAiClient = OpenAIClient()
