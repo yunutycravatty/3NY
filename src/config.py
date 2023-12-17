@@ -13,3 +13,4 @@ OPENAI_API_KEY = key
 MODEL = "gpt-4-1106-preview"
 DBPATH = os.path.join(script_dir, 'backend/db/database.db') 
 UPLOAD = os.path.join(script_dir, 'backend/resources/uploads')
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
