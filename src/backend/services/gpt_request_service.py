@@ -27,13 +27,13 @@ class GptRequestService:
 		start = res.find("{")
 		end = res.rfind("}") + 1
 		# extract json from string
-		js = "{" + res[start:end] + "}"
+		js = res[start:end]
 
 		print("js: ",js)
 		data = json.loads(js)
 
 		print(data)
-		
+
 		pdf_path = self.pdf.create_pdf(data, ROOT_DIR + '/backend/resources/output/pdfReport.pdf')
 
 		return pdf_path, True
