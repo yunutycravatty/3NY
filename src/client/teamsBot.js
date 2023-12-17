@@ -5,9 +5,10 @@ const cardTools = require("@microsoft/adaptivecards-tools");
 const { MicrosoftAppCredentials } = require('botframework-connector');
 const { geneFileName, getFileSize, writeFile } = require('./services/fileService');
 const axios = require('axios');
+
 const fs = require('fs');
 const path = require('path');
-const FILES_DIR = './Files';
+const FILES_DIR = '../backend/resources/output';
 
 class TeamsBot extends TeamsActivityHandler {
   constructor() {
@@ -70,8 +71,33 @@ class TeamsBot extends TeamsActivityHandler {
           //let header = response.headers['content-type'];
           // Check if a file was sent in the response
           console.log(response)
-          if (response.data.contentType === 'application/pdf') {
-            // Get pdf from body
+          const contentType = response.headers['content-type'];
+          if (contentType === 'application/pdf') {
+            //Received a pdf file
+            console.log("Received a pdf file");
+
+            // Send the file to the Teams bot
+            const fileContent = response.headers.filepath; // Assuming the content is sent in the 'file' field
+            const fileName = response.headers['content-disposition'].split('filename=')[1];
+            console.log("filename: ", fileName)
+            console.log("fileContent: ", fileContent)
+
+
+            const stats = fs.statSync(fileContent);
+            const fileSize = stats.size;
+            //const fileSize = Buffer.from(fileContent, 'base64').length;
+
+            // const saveFile = (fileContent, fileName) => {
+            //   const filePath = path.join(FILES_DIR, fileName);
+            //   fs.writeFileSync(filePath, fileContent, 'base64');
+            // };
+
+            // saveFile(fileContent, fileName);
+
+            // Send the consent card using your custom sendFileCard method
+            await this.sendFileCard(context, fileName, fileSize);
+
+            /* // Get pdf from body
             const file = response.data.file;
 
             let fileName = file.name //response.headers['content-disposition'].split('filename=')[1];
@@ -88,15 +114,18 @@ class TeamsBot extends TeamsActivityHandler {
             console.log("filepaths: ", filePath)
             console.log("downloadUrl: ", file.downloadUrl)
 
-            await writeFile(file.downloadUrl, config, filePath);
+            await writeFile(file.downloadUrl, config, filePath); */
             
             
 
-            const stats = fs.statSync(filePath);
+            /* const stats = fs.statSync(filePath);
             const fileSize = stats.size;
 
             // Send the file to the user
-            await this.sendFileCard(context, file.name, fileSize);
+            await this.sendFileCard(context, file.name, fileSize); */
+
+            // Send the file to the Teams bot
+
           }
           else {
             // Send the response to the user
@@ -292,7 +321,7 @@ class TeamsBot extends TeamsActivityHandler {
               fileConsentCardResponse.uploadInfo.uploadUrl,
               fileContent, {
                   headers: {
-                      'Content-Type': 'image/png',
+                      'Content-Type': 'image/pdf',
                       'Content-Length': fileInfo.size,
                       'Content-Range': `bytes 0-${ fileInfo.size - 1 }/${ fileInfo.size }`
                   }
